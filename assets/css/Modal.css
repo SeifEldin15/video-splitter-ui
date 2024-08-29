@@ -1,0 +1,14 @@
+.custom-modal-credit-icon{
+    width:35px;
+    height:35px;
+}
+.custom-modal-credit-icon-lighter{
+    width:48px;
+    height:48px;
+}
+.fa-xmark{
+    margin-bottom: 4px;
+}
+.custom-modal-width{
+    max-width:500px;
+}
