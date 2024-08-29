@@ -351,5 +351,26 @@
             </section>
         </main>
     </div>
+    <script>
+
+        function setActive(selection) {
+            const singleContainerElement = document.querySelector(".single-vid");
+            const splitContainerElement = document.querySelector(".split-vid");
+        
+            singleContainerElement.classList.remove("sel-active");
+            splitContainerElement.classList.remove("sel-active");
+        
+            if (selection === "single") {
+                singleContainerElement.classList.add("sel-active");
+                return "oneVid";
+            } else if (selection === "split") {
+                splitContainerElement.classList.add("sel-active");
+                return "split";
+            }
+        
+            return null;
+        }
+        
+        </script>
 </body>
 </html>
