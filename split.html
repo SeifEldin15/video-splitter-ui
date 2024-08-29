@@ -1,30 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./assets//fontawesome6/css/all.min.css">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="stylesheet" href="">
-        <title>Video Editor Interface</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Editor Interface</title>
+    <link rel="stylesheet" href="./assets/fontawesome6/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Base styles */
         body {
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             background-color: #1E283E;
-            font-family: Arial, sans-serif;
         }
+
+        .full-container {
+            border: 1px solid #2E5084;
+            width: 90%;
+            border-radius: 8px; 
+            margin: 20px auto;
+            padding-bottom: 20px ; 
+        }
+
+        /* Navigation bar styles */
         .nav-bar {
             display: flex;
             background-color: #2c3544;
+            justify-content: center;
             padding: 10px;
-            border-radius: 8px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            border-bottom: 1px solid #2E5084;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
+        .split-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap:70px;
+            width: 100%;
+            background-color: #1F2937;
+            margin: 50px auto;
+            padding: 80px;
+            border: 1px solid #5096FF;
+            border-radius: 10px;
+            filter: drop-shadow(0 0 0.65rem #5096FF);
+        }
+
+        .split-container .header-text {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .selection {
+            width: 200px;
+            height: 200px;
+            margin-top: 30px;
+            border: 1px solid #5096FF;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3 ease-in;
+        }
+
+        .selection:hover {
+            cursor: pointer;
+        }
+
+
+
+        .selection i {
+            font-size: 44px;
+            color: #5096FF;
+        }
+
+        .selection p {
+            margin-top: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .sel-active {
+            background-color: #007bff; /* Example background change */
+        }
+
+        .sel-active i {
+            color: white;
+        }
+
+        .single-vid, .split-vid {
+            transition: all 0.3s ease; /* Adjust the duration and timing function as needed */
+        }
+
         .nav-button {
             padding: 10px 20px;
             margin: 0 5px;
@@ -34,38 +112,57 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+.left-side-btns{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+}
         .nav-button:first-child {
             background-color: #3b82f6;
             color: white;
         }
+
         .nav-button:not(:first-child) {
             background-color: transparent;
             color: #a0aec0;
         }
+
         .nav-button:hover:not(:first-child) {
             background-color: #374151;
         }
-        .splitter-container{
-            gap:30px;
+
+        /* Main content layout */
+        .main-content {
             display: flex;
+            gap: 90px;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto; 
         }
 
-
-
-        .container {
+        /* Left side styles */
+        .left-side {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            background-color: #1f2937;
-            padding: 20px;
-            max-width: 500px;
+            width: 100%;
+            flex-direction: column;
+            max-width: 900px;
             margin: 0 auto;
         }
+
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            width:100%; 
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
         .circle-item {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .circle {
             width: 40px;
             height: 40px;
@@ -78,31 +175,81 @@
             font-weight: bold;
             margin-bottom: 8px;
         }
+
         .label {
             font-size: 12px;
             color: white;
             text-align: center;
         }
+
         .inactive .circle {
             background-color: #6b7280;
         }
+
         .inactive .label {
             opacity: 0.5;
         }
 
+        /* Button styles */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
+        .btn-back {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #3d4655;
+        }
+
+        .btn-back:hover {
+            background-color: #3d4655;
+        }
+
+        .btn-next {
+            background-color: #3b82f6;
+            color: #fff;
+        }
+
+        .btn-next:hover {
+            background-color: #2563eb;
+        }
+
+        /* Preview side styles */
+        .preview-side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .preview-header {
+            font-size: 30px;
+            color: white;
+            margin: 20px auto;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 5px rgba(59, 130, 246, 0.5), 0 0 19px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.3), 0 0 20px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Phone frame styles */
         .phone-frame {
             width: 280px;
-            height: 560px;
+            height: 520px;
             background-color: #000;
             border-radius: 40px;
             position: relative;
             overflow: hidden;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
+
         .screen {
             width: 260px;
-            height: 540px;
+            height: 500px;
             background-color: #fff;
             position: absolute;
             top: 10px;
@@ -110,6 +257,7 @@
             border-radius: 30px;
             overflow: hidden;
         }
+
         .notch {
             width: 120px;
             height: 25px;
@@ -121,6 +269,7 @@
             border-bottom-left-radius: 15px;
             border-bottom-right-radius: 15px;
         }
+
         .content {
             width: 100%;
             height: 100%;
@@ -131,64 +280,76 @@
             font-size: 18px;
             color: #333;
         }
-        .preview-side{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .left-side{
-            border: 1px solid #2E5084;
-            margin-right:30px;
-        }
     </style>
 </head>
 <body>
-    <div class="splitter-container">
+    <div class="full-container">
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <button class="nav-button">Uploads & Crop</button>
+            <button class="nav-button">Transcribe & edit captions</button>
+            <button class="nav-button">Edit Caption & effects and animations</button>
+            <button class="nav-button">Generate & Download video</button>
+        </nav>
 
-   <div class="left-side">
-    <div class="nav-bar">
-        <button class="nav-button">Uploads & Crop</button>
-        <button class="nav-button">Transcribe & edit captions</button>
-        <button class="nav-button">Edit Caption & effects and animations</button>
-        <button class="nav-button">Generate & Download video</button>
-    </div>
-    <div class="container">
-        <div class="circle-item">
-            <div class="circle">1</div>
-            <span class="label">Video Type</span>
-        </div>
-        <div class="circle-item">
-            <div class="circle">2</div>
-            <span class="label">Split Type</span>
-        </div>
-        <div class="circle-item">
-            <div class="circle">3</div>
-            <span class="label">Split Type</span>
-        </div>
-        <div class="circle-item">
-            <div class="circle">4</div>
-            <span class="label">Split Type</span>
-        </div>
-        <div class="circle-item inactive">
-            <div class="circle">5</div>
-            <span class="label">Split Type</span>
-        </div>
-    </div>
-</div>
-   </div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Side: Progress and Controls -->
+            <section class="left-side">
+                <div class="progress-container">
+                    <div class="circle-item">
+                        <div class="circle">1</div>
+                        <span class="label">Video Type</span>
+                    </div>
+                    <div class="circle-item">
+                        <div class="circle">2</div>
+                        <span class="label">Split Type</span>
+                    </div>
+                    <div class="circle-item">
+                        <div class="circle">3</div>
+                        <span class="label">Split Type</span>
+                    </div>
+                    <div class="circle-item">
+                        <div class="circle">4</div>
+                        <span class="label">Split Type</span>
+                    </div>
+                    <div class="circle-item inactive">
+                        <div class="circle">5</div>
+                        <span class="label">Split Type</span>
+                    </div>
+                </div>
+                <div class="split-container">
+                    <p class="header-text">Choose Video Type</p>
+                    <div class="single-vid selection" onclick='setActive("single")'>
+                        <i class="fa-solid fa-film"></i>
+                        <p>Single Video</p>
+                    </div>
+                    <div class="split-vid selection" onclick='setActive("split")'>
+                        <i class="fa-solid fa-table-columns"></i>
+                        <p>Single Video</p>
+                    </div>
+                </div>
+    
+                <div class="left-side-btns">
+                    <button class="btn btn-back">Back</button>
+                    <button class="btn btn-next">Next</button>
+                </div>
+                
+            </section>
 
-<div class="preview-side">
-    <div class="preview-header">
-    Preview
-</div>
-    <div class="phone-frame">
-        <div class="screen">
-            <div class="notch"></div>
-            <div class="content">
-                Your content here
-            </div>
-        </div>
+            <!-- Right Side: Preview -->
+            <section class="preview-side">
+                <h2 class="preview-header glow-text">Preview</h2>
+                <div class="phone-frame">
+                    <div class="screen">
+                        <div class="notch"></div>
+                        <div class="content">
+                            <!-- Preview content goes here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
-</div>
 </body>
 </html>
