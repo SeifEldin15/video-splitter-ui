@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <title>Video Editor Interface</title>
+    <link rel="stylesheet" href="./assets/fontawesome6/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Base styles */
+        body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #111827;
+    font-size: 14px;
+}
+
+.full-container {     background-color: #1F2937 !important;
+
+     width: 80%;
+    border-radius: 6px; 
+    margin: 15px auto;
+
+    padding-bottom: 15px;
+}
+
+.nav-bar {
+    display: flex;
+    background-color: #232F40;
+    justify-content: center;
+    padding: 8px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom: 1px solid #374151;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.split-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    position: relative;
+    width: 100%;
+    background-color: #1F2937;
+    margin: 30px auto;
+    padding: 30px;
+    border: 1px solid #5096FF;
+    border-radius: 8px;
+    box-shadow: 0px 0px 30px rgba(80, 150, 255, 0.353);
+}
+
+.split-container .header-text {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.selection {
+    width: 200px;
+    height: 200px;
+    margin-top: 40px;
+    border: 1px solid #5096FF;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease-in;
+}
+
+.selection:hover {
+    cursor: pointer;
+}
+
+.upload-vid {
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='18' ry='18' stroke='%235096FFFF' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    border-radius: 18px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.first-vid-container, .second-vid-container {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+}
+
+.first-vid, .second-vid {
+    cursor: pointer;
+}
+
+.first-vid-container p, .second-vid-container p {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.second-vid-container {
+    margin-top: 30px;
+}
+
+.upload-vid {
+    padding: 15px 0; 
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.upload-vid .icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+}
+
+.icon i {
+    font-size: 80px;
+    color: #2563eb;
+}
+
+.icon p {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.selection i {
+    font-size: 36px;
+    color: #5096FF;
+}
+
+.selection p {
+    margin-top: 6px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.sel-active {
+    background-color: #007bff;
+}
+
+.sel-active i {
+    color: white;
+}
+
+.single-vid, .split-vid {
+    transition: all 0.3s ease;
+}
+
+.nav-button {
+    padding: 4px 12px;
+    border: solid #0C8BE8;
+    border-radius: 18px;
+    color: white;
+    filter: drop-shadow(0 0 0.15rem #5096FF);
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 8px 0;
+}
+
+.left-side-btns {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-button:first-child {
+    background-color: #3b82f6;
+}
+
+.nav-button:not(:first-child) {
+    background-color: transparent;
+}
+
+.nav-button:hover:not(:first-child) {
+    background-color: #374151;
+}
+
+.main-content {
+    background-color: #1F2937;
+   display: flex;
+    gap: 60px;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto; 
+}
+
+.left-side {
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.progress-container {
+    display: flex;
+    justify-content: space-between;
+    width: 90%; 
+    align-items: flex-start;
+    margin-top: 15px;
+}
+
+.circle-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #3b82f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.label {
+    font-size: 14px;
+    color: white;
+    text-align: center;
+}
+
+.inactive .circle {
+    background-color: #6b7280;
+}
+
+.inactive .label {
+    opacity: 0.5;
+}
+
+.btn {
+    padding: 8px 60px;
+    border: 1px solid #0C8BE8;
+    border-radius: 12px;
+    font-size: 14px;
+    box-shadow: 0px 0px 15px rgba(80, 150, 255, 0.353);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-back {
+    background-color: transparent;
+    color: #fff;
+}
+
+.btn-back:hover {
+    background-color: #3d4655;
+}
+
+.btn-next {
+    background-color: #3b82f6;
+    color: #fff;
+}
+
+.btn-next:hover {
+    background-color: #2563eb;
+}
+
+.preview-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.preview-header {
+    font-size: 24px;
+    color: white;
+    margin: 15px auto;
+}
+
+.glow-text {
+    text-shadow: 0 0 5px rgba(59, 130, 246, 0.5), 0 0 19px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.3), 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+.phone-frame {
+    width: 220px;
+    height: 420px;
+    background-color: #000;
+    border-radius: 32px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.screen {
+    width: 204px;
+    height: 404px;
+    background-color: #fff;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.notch {
+    width: 96px;
+    height: 20px;
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    background-color: #1F2937;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #333;
+}
+
+.line {
+    width: 10%;
+    border: 1px solid #5096FF;
+    height: 1px;
+}
+
+.container2 {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #1F2937;
+    border-radius: 6px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid rgb(80, 150, 255);
+}
+
+.container2 h1 {
+    font-size: 16px;
+    color: white !important;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.subtitle-row {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #3a4356;
+}
+
+.subtitle-text {
+    color: white;
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+}
+
+.subtitle-time {
+    color: #8b93a3;
+    margin-right: 8px;
+    font-size: 12px;
+}
+
+.action-button {
+    background-color: transparent;
+    border: none;
+    color: #4c9eeb;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.add-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4c9eeb;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 16px;
+}
+.fa-trash{
+    color: #4c9eeb;
+    margin-left:10px;
+}
+.fa-plus{
+    color: #4c9eeb;
+}
+    </style>
+</head>
+<body>
+    <div class="full-container hover-box-shadow">
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <button class="nav-button">Uploads & Crop</button>
+            <div class="line"></div>
+            <button class="nav-button">Transcribe & edit captions</button>
+            <div class="line"></div>
+            <button class="nav-button">Edit Caption & effects and animations</button>
+            <div class="line"></div>
+            <button class="nav-button">Generate & Download video</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Side: Progress and Controls -->
+            <section class="left-side">
+            
+                <div class="split-container">
+                    <p class="header-text">Transcription Method</p>
+                    <div class="single-vid selection" onclick='setActive("single")'>
+                        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                        <p>Upload SRT File</p>
+                    </div>
+                    <div class="split-vid selection" onclick='setActive("split")'>
+                        <i class="fa-sharp fa-regular fa-microphone"></i>
+                        <p>Transcripe Video</p>
+                    </div>
+                    <div class="split-vid2 selection" onclick='setActive("split2")'>
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <p>Create Transcripe</p>
+                    </div>
+                </div>
+                
+                <div class="upload-contianer">
+                    <div class="first-vid-container">
+                        <p>Upload first Video</p>
+                        <div class="first-vid upload-vid">
+                            <div class="icon">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <p>Top Video</p>
+                            </div>
+                        </div>
+                    </div>
+                <div class="container2">
+                    <h1>Edit Transcription</h1>
+                    <div class="subtitle-row">
+                        <span class="subtitle-text">Place Holder ....</span>
+                        <span class="subtitle-time">00:01</span>
+                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+                    <button class="add-button">Add new subtitles +</button>
+                </div>
+            
+                <div class="left-side-btns">
+                    <button class="btn btn-back">Back</button>
+                    <button class="btn btn-next">Next</button>
+                </div>
+                
+            </section>
+
+            <!-- Right Side: Preview -->
+            <section class="preview-side">
+                <h2 class="preview-header glow-text">Preview</h2>
+                <div class="phone-frame">
+                    <div class="screen">
+                        <div class="notch"></div>
+                        <div class="content">
+                            <!-- Preview content goes here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+
+        function setActive(selection) {
+            const singleContainerElement = document.querySelector(".single-vid");
+            const splitContainerElement = document.querySelector(".split-vid");
+            const splitContainerElement2 = document.querySelector(".split-vid2");
+        
+            singleContainerElement.classList.remove("sel-active");
+            splitContainerElement.classList.remove("sel-active");
+            splitContainerElement2.classList.remove("sel-active");
+        
+            if (selection === "single") {
+                singleContainerElement.classList.add("sel-active");
+                return "oneVid";
+            } else if (selection === "split") {
+                splitContainerElement.classList.add("sel-active");
+                return "split";
+            }
+            else if (selection === "split2") {
+                splitContainerElement2.classList.add("sel-active");
+                return "split2";
+            }
+            return null;
+        }
+        
+        </script>
+</body>
+</html>
