@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <title>Video Editor Interface</title>
+    <link rel="stylesheet" href="./assets/fontawesome6/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="full-container hover-box-shadow">
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <button class="nav-button-active">Uploads & Crop</button>
+            <div class="line"></div>
+            <button class="nav-button-active">Transcribe & edit captions</button>
+            <div class="line"></div>
+            <button class="nav-button-active">Edit Caption & effects and animations</button>
+            <div class="line2"></div>
+            <button class="nav-button">Generate & Download video</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+          <div style="display: flex; flex-direction: column; margin: 0 auto;
+          gap:20px; width:100%;">
+            <div class="container5">
+                <h1>Generate Video</h1>
+                <div class="settings-box">
+                    <h2>Video Settings</h2>
+                    <div class="row">
+                        <div>
+                            <label for="format">Video Format</label>
+                            <select id="format">
+                                <option>MP4</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="quality">Video Quality</label>
+                            <select id="quality">
+                                <option>High (1080p)</option>
+                            </select>
+                        </div>
+                    </div>
+                  <div style="display: flex;">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="subtitles" checked>
+                        <label for="subtitles">Include subtitles in the video</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="srt" checked>
+                        <label for="srt">Download SRT</label>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                
+            <div class="container4">
+                <h2>Audio Settings</h2>
+                <p>Select Audio Preset</p>
+                <div class="presets">
+                    <button class="preset"><i class="fa-solid fa-music"></i></button>
+                    <button class="preset"><i class="fa-solid fa-music"></i></button>
+                    <button class="preset"><i class="fa-solid fa-music"></i></button>
+                    <button class="preset"><i class="fa-solid fa-music"></i></button>
+                </div>
+                <div class="upload-section">
+
+                    <div class="spacer">
+                        <div class="left-spacer"></div>
+                        <p>Or upload custom audio</p>
+                        <div class="right-spacer"></div>
+                    </div>                    <button class="btn btn-back"><i class="fa-solid fa-arrow-up-from-bracket"></i> Upload Audio</button>
+                </div>
+                <input type="range" class="slider" min="0" max="100" value="50">
+            </div>
+            <div class="" style="display: flex; flex-direction: column; align-items: center;">
+                <button class="btn btn-next"> <i class="fa-solid fa-gear"></i> Generate video</button>
+                <div class="container7">
+                    <h2>Generate Video</h2>
+                    <div class="video-placeholder">
+                        <div class="timeline"></div>
+                    </div>
+                    <button class="download-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download Video
+                    </button>
+                </div>
+            </div>
+            <div class="left-side-btns">
+                <button class="btn btn-back">Back</button>
+                <button class="btn btn-next">Next</button>
+            </div>
+          </div>
+    
+                <!-- Right Side: Preview -->
+                <section class="preview-side">
+                    <h2 class="preview-header glow-text">Preview</h2>
+                    <div class="phone-frame">
+                        <div class="screen">
+                            <div class="notch"></div>
+                            <div class="content">
+                                <!-- Preview content goes here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                </section>
+                
+            </main>
+            
+    </div>
+    <script>
+
+        function setActive(selection) {
+            const singleContainerElement = document.querySelector(".single-vid");
+            const splitContainerElement = document.querySelector(".split-vid");
+            const splitContainerElement2 = document.querySelector(".split-vid2");
+        
+            singleContainerElement.classList.remove("sel-active");
+            splitContainerElement.classList.remove("sel-active");
+            splitContainerElement2.classList.remove("sel-active");
+        
+            if (selection === "single") {
+                singleContainerElement.classList.add("sel-active");
+                return "oneVid";
+            } else if (selection === "split") {
+                splitContainerElement.classList.add("sel-active");
+                return "split";
+            }
+            else if (selection === "split2") {
+                splitContainerElement2.classList.add("sel-active");
+                return "split2";
+            }
+            return null;
+        }
+        
+        </script>
+</body>
+</html>

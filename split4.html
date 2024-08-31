@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <title>Video Editor Interface</title>
+    <link rel="stylesheet" href="./assets/fontawesome6/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .upload-vid {
+            position: relative;
+            overflow: hidden;
+        }
+        .phone-preview-container {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 20px); /* Adjust for the notch */
+        }
+        .crop-square {
+            position: absolute;
+            width: 100%;
+            height: 33.33%; /* Initial height, can be adjusted */
+            border: 2px dashed white;
+            box-sizing: border-box;
+            cursor: move;
+            top: 0;
+            left: 0;
+            display: none; /* Initially hidden */
+        }
+        .upload-vid input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .remove-video {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 50%;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .video-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .phone-preview {
+            width: 100%;
+            height: calc(100% - 20px); /* Adjust for the notch */
+            object-fit: cover;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="full-container hover-box-shadow">
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <button class="nav-button">Uploads & Crop</button>
+            <div class="line"></div>
+            <button class="nav-button">Transcribe & edit captions</button>
+            <div class="line2"></div>
+            <button class="nav-button">Edit Caption & effects and animations</button>
+            <div class="line2"></div>
+            <button class="nav-button">Generate & Download video</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Side: Progress and Controls -->
+            <section class="left-side">
+                <div class="progress-container" style="margin-bottom: 30px;">
+                    <div class="circle-item">
+                        <div class="circle">1</div>
+                        <span class="label">Video Type</span>
+                    </div>
+                    <div class="circle-item">
+                        <div class="circle">2</div>
+                        <span class="label">Split Type</span>
+                    </div>
+                    <div class="circle-item ">
+                        <div class="circle">3</div>
+                        <span class="label">Aspect Ratio</span>
+                    </div>
+                    <div class="circle-item ">
+                        <div class="circle">4</div>
+                        <span class="label">Upload & Preset</span>
+                    </div>
+                    <div class="circle-item inactive">
+                        <div class="circle">5</div>
+                        <span class="label">Crop</span>
+                    </div>
+                </div>
+           
+                <div class="upload-container">
+                    <div class="first-vid-container">
+                        <p>Upload first Video</p>
+                        <div id="first-vid" class="first-vid upload-vid upload-vid2">
+                            <div class="icon">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <p>Top Video</p>
+                            </div>
+                            <input type="file" id="file-input" accept="video/*">
+                            <video id="video-preview" class="video-preview" style="display: none;"></video>
+                            <button id="remove-video" class="remove-video" style="display: none;">
+                                <i class="fa-solid fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="left-side-btns">
+                    <a href="split3.html" class="btn btn-back">Back</a>
+                    <a href="downloadcrop.html" class="btn btn-next">Next</a>
+                </div>
+            </section>
+
+            <!-- Right Side: Preview -->
+            <section class="preview-side">
+                <h2 class="preview-header glow-text">Preview</h2>
+                <div class="phone-frame">
+                    <div class="screen">
+                        <div class="notch"></div>
+                        <div class="content">
+                            <div class="phone-preview-container">
+                                <video id="phone-preview" class="phone-preview" loop muted></video>
+                                <div id="crop-square" class="crop-square"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+    const firstVid = document.getElementById('first-vid');
+        const fileInput = document.getElementById('file-input');
+        const videoPreview = document.getElementById('video-preview');
+        const phonePreview = document.getElementById('phone-preview');
+        const removeVideoBtn = document.getElementById('remove-video');
+        const uploadIcon = firstVid.querySelector('.icon');
+        const cropSquare = document.getElementById('crop-square');
+        const phonePreviewContainer = document.querySelector('.phone-preview-container');
+
+        firstVid.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            firstVid.classList.add('dragover');
+        });
+
+        firstVid.addEventListener('dragleave', () => {
+            firstVid.classList.remove('dragover');
+        });
+
+        firstVid.addEventListener('drop', (e) => {
+            e.preventDefault();
+            firstVid.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        removeVideoBtn.addEventListener('click', removeVideo);
+
+        function handleFiles(files) {
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type.startsWith('video/')) {
+                    const videoURL = URL.createObjectURL(file);
+                    videoPreview.src = videoURL;
+                    phonePreview.src = videoURL;
+                    videoPreview.style.display = 'block';
+                    phonePreview.style.display = 'block';
+                    removeVideoBtn.style.display = 'block';
+                    uploadIcon.style.display = 'none';
+                    phonePreview.play();
+                    cropSquare.style.display = 'block'; // Show crop square
+                } else {
+                    alert('Please upload a valid video file.');
+                }
+            }
+        }
+
+        function removeVideo(e) {
+            e.stopPropagation();
+            videoPreview.src = '';
+            phonePreview.src = '';
+            fileInput.value = '';
+            videoPreview.style.display = 'none';
+            phonePreview.style.display = 'none';
+            removeVideoBtn.style.display = 'none';
+            uploadIcon.style.display = 'flex';
+            cropSquare.style.display = 'none'; // Hide crop square
+        }
+
+        let isDragging = false;
+        let startY, startTop;
+
+        cropSquare.addEventListener('mousedown', startDragging);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', stopDragging);
+
+        function startDragging(e) {
+            isDragging = true;
+            startY = e.clientY;
+            startTop = cropSquare.offsetTop;
+            e.preventDefault();
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            const containerHeight = phonePreviewContainer.offsetHeight;
+            const squareHeight = cropSquare.offsetHeight;
+            let newTop = startTop + (e.clientY - startY);
+            newTop = Math.max(0, Math.min(newTop, containerHeight - squareHeight));
+            cropSquare.style.top = `${newTop}px`;
+        }
+
+        function stopDragging() {
+            isDragging = false;
+        }
+
+        function setActive(selection) {
+            const singleContainerElement = document.querySelector(".single-vid");
+            const splitContainerElement = document.querySelector(".split-vid");
+            const splitContainerElement2 = document.querySelector(".split-vid2");
+        
+            singleContainerElement.classList.remove("sel-active");
+            splitContainerElement.classList.remove("sel-active");
+            splitContainerElement2.classList.remove("sel-active");
+        
+            if (selection === "single") {
+                singleContainerElement.classList.add("sel-active");
+                return "oneVid";
+            } else if (selection === "split") {
+                splitContainerElement.classList.add("sel-active");
+                return "split";
+            }
+            else if (selection === "split2") {
+                splitContainerElement2.classList.add("sel-active");
+                return "split2";
+            }
+            return null;
+        }
+    </script>
+</body>
+</html>

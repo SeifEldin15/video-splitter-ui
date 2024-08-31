@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <title>Video Editor Interface</title>
+    <link rel="stylesheet" href="./assets/fontawesome6/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+<body>
+    <div class="full-container hover-box-shadow">
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <button class="nav-button-active">Uploads & Crop</button>
+            <div class="line"></div>
+            <button class="nav-button-active">Transcribe & edit captions</button>
+            <div class="line"></div>
+            <button class="nav-button-active">Edit Caption & effects and animations</button>
+            <div class="line"></div>
+            <button class="nav-button">Generate & Download video</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container6">
+         <div class="" style="width: 100%; max-width: 800px; 
+            border: 1px solid #5096FF;
+         
+         ">
+
+            <div class="tabs-container">
+                <div class="tabs">
+                    <div class="tab ">
+                        <i class="fa-solid fa-sliders fa-rotate-90"></i>
+                        Custom
+                    </div>
+                    <div class="tab active">
+                        <i class="fa-sharp fa-light fa-command"></i>
+                        Preset
+                                        </div>
+                </div>
+                
+              </div>
+              <div class="grid">
+                <div class="preset">
+                    <div class="preset-sample" style="color: white;">Sample</div>
+                    <div class="preset-title">
+                        Classic
+                    </div>
+                </div>
+                <div class="preset">
+                    <div class="preset-sample" style="color: yellow;">Sample</div>
+                    <div class="preset-title">
+                        Classic
+                    </div>
+                </div>
+                <div class="preset">
+                    <div class="preset-sample" style="color: lime;">Sample</div>
+                    <div class="preset-title">
+                        Classic
+                    </div>
+                </div>
+                <div class="preset">
+                    <div class="preset-sample" style="color: pink;">Sample</div>
+                    <div class="preset-title">
+                        Classic
+                    </div>
+                </div>
+                <div class="preset">
+                    <div class="preset-sample" style="color: #9ca3af;">Sample</div>
+                    <div class="preset-title">
+                        Classic
+                    </div>
+                </div>
+                <div class="preset">
+                    <div class="preset-sample" style="color: red;">Sample</div>
+                    <div class="preset-title">
+                        Classic
+                    </div>
+                </div>
+                <div class="preset">
+                    <div class="preset-sample" style="color: white;">Sample</div>
+                    <div class="preset-title">
+                        Classic
+                    </div>
+                </div>
+                <div class="preset">
+                    <div class="preset-sample" style="color: #ff69b4;">Sample</div>
+                    <div class="preset-title">
+                        Classic
+                    </div>
+                </div>
+    
+         </div>
+         <div class="preview-container2">
+            <div class="subtitle-container">
+                <p class="subtitle-text">Sample Subtitle Text</p>
+            </div>
+            </div>
+        </div>
+        <div class="left-side-btns" style="margin-top:30px">
+            <button class="btn btn-back">Back</button>
+            <a href="generate.html" class="btn btn-next">Next</a>
+        </div>
+        </div>
+                <!-- Right Side: Preview -->
+                <section class="preview-side">
+                    <h2 class="preview-header glow-text">Preview</h2>
+                    <div class="phone-frame">
+                        <div class="screen">
+                            <div class="notch"></div>
+                            <div class="content">
+                                <!-- Preview content goes here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+    </div>
+    <script>
+
+        function setActive(selection) {
+            const singleContainerElement = document.querySelector(".single-vid");
+            const splitContainerElement = document.querySelector(".split-vid");
+            const splitContainerElement2 = document.querySelector(".split-vid2");
+        
+            singleContainerElement.classList.remove("sel-active");
+            splitContainerElement.classList.remove("sel-active");
+            splitContainerElement2.classList.remove("sel-active");
+        
+            if (selection === "single") {
+                singleContainerElement.classList.add("sel-active");
+                return "oneVid";
+            } else if (selection === "split") {
+                splitContainerElement.classList.add("sel-active");
+                return "split";
+            }
+            else if (selection === "split2") {
+                splitContainerElement2.classList.add("sel-active");
+                return "split2";
+            }
+            return null;
+        }
+        
+        </script>
+</body>
+</html>

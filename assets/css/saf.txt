@@ -1,0 +1,5 @@
+glow on hover boxes
+no border
+colors like older dashboard
+all box sizes for choices smaller
+bottom border for navbar grey like table on main app

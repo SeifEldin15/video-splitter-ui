@@ -8,287 +8,7 @@
     <link rel="stylesheet" href="./assets/fontawesome6/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Base styles */
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #111827;
-        }
 
-        .full-container {     background-color: #1F2937 !important;
-
-             width: 90%;
-            border-radius: 8px; 
-            margin: 20px auto;
-            padding-bottom: 20px ; 
-        }
-
-        /* Navigation bar styles */
-        .nav-bar {
-            display: flex;
-            background-color: #232F40;
-            justify-content: center;
-            padding: 10px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            border-bottom: 1px solid #374151;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            align-items: center;
-        }
-        .split-container {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            gap:70px;
-            width: 100%;
-            background-color: #1F2937;
-            margin: 50px auto;
-            padding: 80px;
-            border: 1px solid #5096FF;
-            border-radius: 10px;
-            box-shadow: 0px 0px 40.4px rgba(80, 150, 255, 0.353);
-        }
-
-        .split-container .header-text {
-            position: absolute;
-            top: 20px;
-            left: 30px;
-            color: white;
-            font-size: 22px;
-            font-weight: 600;
-        }
-
-       .selection {
-    width: 200px;
-    height: 200px;
-    margin-top: 40px;
-    border: 1px solid #5096FF;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s ease-in;
-}
-
-        .selection:hover {
-            cursor: pointer;
-        }
-
-
-
-        .selection i {
-            font-size: 74px;
-            color: #5096FF;
-        }
-
-        .selection p {
-            margin-top: 8px;
-            color: white;
-            font-weight: 600;
-            font-size: 20px;
-        }
-
-        .sel-active {
-            background-color: #007bff; /* Example background change */
-        }
-
-        .sel-active i {
-            color: white;
-        }
-
-        .single-vid, .split-vid {
-            transition: all 0.3s ease; /* Adjust the duration and timing function as needed */
-        }
-
-        .nav-button {
-            padding: 5px 15px;
-            border: solid #0C8BE8;
-            border-radius: 21px;
-            color: white;
-            filter: drop-shadow(0 0 0.20rem #5096FF);
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin: 10px 0;
-        }
-.left-side-btns{
-    width:100%;
-    display: flex;
-    justify-content: space-between;
-}
- 
-        .nav-button:first-child {
-            background-color: #3b82f6;
-        }
-
-        .nav-button:not(:first-child) {
-            background-color: transparent;
-        }
-
-        .nav-button:hover:not(:first-child) {
-            background-color: #374151;
-        }
-
-        /* Main content layout */
-        .main-content {
-    background-color: #1F2937;
-           display: flex;
-            gap: 90px;
-            justify-content: center;
-            max-width: 1200px;
-            margin: 0 auto; 
-        }
-
-        /* Left side styles */
-        .left-side {
-            display: flex;
-            width: 100%;
-            flex-direction: column;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .progress-container {
-            display: flex;
-            justify-content: space-between;
-            width:100%; 
-            align-items: flex-start;
-            margin-top: 20px;
-        }
-
-        .circle-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #3b82f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .label {
-            font-size: 16px;
-            color: white;
-            text-align: center;
-        }
-
-        .inactive .circle {
-            background-color: #6b7280;
-        }
-
-        .inactive .label {
-            opacity: 0.5;
-        }
-
-        /* Button styles */
-        .btn {
-            padding: 10px 80px;
-            border: 1px solid #0C8BE8;
-            border-radius: 14px;
-            font-size: 16px;
-    box-shadow: 0px 0px 20.4px rgba(80, 150, 255, 0.353);
-    cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .btn-back {
-            background-color: transparent;
-            color: #fff;
-         }
-
-        .btn-back:hover {
-            background-color: #3d4655;
-        }
-
-        .btn-next {
-            background-color: #3b82f6;
-            color: #fff;
-        }
-
-        .btn-next:hover {
-            background-color: #2563eb;
-        }
-
-        /* Preview side styles */
-        .preview-side {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .preview-header {
-            font-size: 30px;
-            color: white;
-            margin: 20px auto;
-        }
-
-        .glow-text {
-            text-shadow: 0 0 5px rgba(59, 130, 246, 0.5), 0 0 19px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.3), 0 0 20px rgba(59, 130, 246, 0.2);
-        }
-
-        /* Phone frame styles */
-        .phone-frame {
-            width: 280px;
-            height: 520px;
-            background-color: #000;
-            border-radius: 40px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-        }
-
-        .screen {
-            width: 260px;
-            height: 500px;
-            background-color: #fff;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            border-radius: 30px;
-            overflow: hidden;
-        }
-
-        .notch {
-            width: 120px;
-            height: 25px;
-            background-color: #000;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
-        }
-
-        .content {
-            width: 100%;
-            height: 100%;
-            background-color: #1F2937;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
-            color: #333;
-        }
-        .line{
-            width:10%;
-            border: 1px solid #5096FF;
-            height:1px;
-        }
     </style>
 </head>
 <body>
@@ -298,9 +18,9 @@
             <button class="nav-button">Uploads & Crop</button>
             <div class="line"></div>
             <button class="nav-button">Transcribe & edit captions</button>
-            <div class="line"></div>
+            <div class="line2"></div>
             <button class="nav-button">Edit Caption & effects and animations</button>
-            <div class="line"></div>
+            <div class="line2"></div>
             <button class="nav-button">Generate & Download video</button>
         </nav>
 
@@ -313,40 +33,41 @@
                         <div class="circle">1</div>
                         <span class="label">Video Type</span>
                     </div>
-                    <div class="circle-item">
+                    <div class="circle-item inactive">
                         <div class="circle">2</div>
                         <span class="label">Split Type</span>
                     </div>
-                    <div class="circle-item">
+                    <div class="circle-item inactive">
                         <div class="circle">3</div>
-                        <span class="label">Split Type</span>
+                        <span class="label">Aspect Ratio
+                        </span>
                     </div>
-                    <div class="circle-item">
+                    <div class="circle-item inactive">
                         <div class="circle">4</div>
-                        <span class="label">Split Type</span>
+                        <span class="label">Upload & Preset</span>
                     </div>
                     <div class="circle-item inactive">
                         <div class="circle">5</div>
-                        <span class="label">Split Type</span>
+                        <span class="label">Crop</span>
                     </div>
                 </div>
                 <div class="split-container">
                     <p class="header-text">Choose Video Type</p>
-                    <div class="single-vid selection" onclick='setActive("single")'>
+                    <a href="split3.html" class="single-vid selection" onclick='setActive("single")'>
                         <i class="fa-solid fa-film"></i>
                         <p>Single Video</p>
-                    </div>
-                    <div class="split-vid selection" onclick='setActive("split")'>
+                    </a>
+                    <a href="split2.html" class="split-vid selection" onclick='setActive("split")'>
                         <i class="fa-solid fa-table-columns"></i>
                         <p>Split Video</p>
-                    </div>
+                    </a>
                 </div>
-    
+<!--     
                 <div class="left-side-btns">
                     <button class="btn btn-back">Back</button>
                     <button class="btn btn-next">Next</button>
                 </div>
-                
+                 -->
             </section>
 
             <!-- Right Side: Preview -->
