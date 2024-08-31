@@ -13,6 +13,15 @@
     </style>
 </head>
 <body>
+    <div class="content-container">
+
+        <div class="video-editor-header-container">
+            <h1 class="video-editor-header">
+                Video Editor
+            </h1>
+            <p>(beta)</p>
+        </div>
+
     <div class="full-container hover-box-shadow">
         <!-- Navigation Bar -->
         <nav class="nav-bar">
@@ -45,18 +54,19 @@
                     <div class="column">
                         <label>Font Size</label>
                         <div style="display: flex; align-items: center;">
-                            <input type="range" class="slider" min="12" max="72" value="24" style="width: 70%; background-color: black; height:2px !important;">
-                            <input type="text" value="24px" style="width: 50px; margin-left: 10px;">
+                            <input type="range" id="fontSizeSlider" class="slider" min="12" max="72" value="24" style="width: 70%; background-color: black; height:2px !important;">
+                            <input type="text" id="fontSizeInput" value="24px" style="width: 50px; margin-left: 10px;">
                         </div>
                     </div>
                     <div class="column">
                         <label>Text Color</label>
-                        <div class="color-picker">
-                            <div class="color-preview"></div>
-                            <input type="text" value="#FFFFFF" style="width: calc(100% - 25px);">
+                        <div class="color-picker" id="textColorPicker">
+                            <input type="color" id="textColorPickerInput" value="#FFFFFF">
+                            <input type="text" id="textColorInput" value="#FFFFFF" style="width: calc(100% - 25px);">
                         </div>
                     </div>
-                </div>
+        
+                      </div>
                 
                 <div class="row">
                     <div class="column">
@@ -70,21 +80,20 @@
                     <div class="column">
                         <label>Font Family</label>
                         <br>
-
-                        <select>
-                            <option>Arial</option>
-                            <option>Helvetica</option>
-                            <option>Times New Roman</option>
-                            <option>Courier New</option>
-                            <option>Verdana</option>
-                            <option>Georgia</option>
-                            <option>Palatino</option>
-                            <option>Garamond</option>
-                            <option>Bookman</option>
-                            <option>Comic Sans MS</option>
-                            <option>Trebuchet MS</option>
-                            <option>Arial Black</option>
-                        </select>
+                <select id="fontFamilySelect" class="font-select">
+                    <option value="Arial" style="font-family: Arial;">Arial</option>
+                    <option value="Helvetica" style="font-family: Helvetica;">Helvetica</option>
+                    <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman</option>
+                    <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
+                    <option value="Verdana" style="font-family: Verdana;">Verdana</option>
+                    <option value="Georgia" style="font-family: Georgia;">Georgia</option>
+                    <option value="Palatino" style="font-family: Palatino;">Palatino</option>
+                    <option value="Garamond" style="font-family: Garamond;">Garamond</option>
+                    <option value="Bookman" style="font-family: Bookman;">Bookman</option>
+                    <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS</option>
+                    <option value="Trebuchet MS" style="font-family: 'Trebuchet MS';">Trebuchet MS</option>
+                    <option value="Arial Black" style="font-family: 'Arial Black';">Arial Black</option>
+                </select>
                     </div>
                 </div>
                 
@@ -147,11 +156,11 @@
                 </div>
                 <div class="row">
                 
-                    <div class="column">
-                        <label>Background Color</label>
-                        <div class="color-picker">
-                            <div class="color-preview" style="background-color: transparent;"></div>
-                            <input type="text" value="Transparent" style="width: calc(100% - 25px);">
+                        <div class="column">
+                            <label>Background Color</label>
+                <div class="color-picker">
+                    <input type="color" id="bgColorPicker" value="#000000">
+                    <input type="text" id="bgColorInput" value="Transparent" style="width: calc(100% - 25px);">
                         </div>
                     </div>
                     <div class="column">
@@ -232,11 +241,92 @@
                             </div>
                         </div>
                     </div>
+                    <div class="credit-info">
+                        <span>Your Credits: 3910</span>
+                        <span class="credits-needed">Credits Needed: 1</span>
+                        <span>Remaining Credits: 3909</span>
+                    </div>
                 </section>
             </main>
+        </div>
     </div>
     <script>
+      const fontSizeSlider = document.getElementById('fontSizeSlider');
+        const fontSizeInput = document.getElementById('fontSizeInput');
+        const subtitleText = document.querySelector('.subtitle-text');
 
+        function updateFontSize(value) {
+            fontSizeInput.value = `${value}px`;
+            subtitleText.style.fontSize = `${value}px`;
+            
+            const hue = (value - 12) * 3;
+            fontSizeSlider.style.background = `linear-gradient(to right, hsl(${hue}, 100%, 50%), hsl(${hue}, 100%, 50%))`;
+        }
+
+        fontSizeSlider.addEventListener('input', (e) => {
+            updateFontSize(e.target.value);
+        });
+
+        fontSizeInput.addEventListener('change', (e) => {
+            let value = parseInt(e.target.value);
+            if (isNaN(value)) {
+                value = 24;
+            } else {
+                value = Math.max(12, Math.min(72, value));
+            }
+            fontSizeSlider.value = value;
+            updateFontSize(value);
+        });
+        function setupFontFamilySelect() {
+            const fontSelect = document.getElementById('fontFamilySelect');
+            const subtitleText = document.querySelector('.subtitle-text');
+
+            fontSelect.addEventListener('change', (e) => {
+                const selectedFont = e.target.value;
+                subtitleText.style.fontFamily = selectedFont;
+            });
+
+            // Initialize with the default selected font
+            subtitleText.style.fontFamily = fontSelect.value;
+        }
+
+        // Call the setup functions
+        setupFontFamilySelect();
+        setupColorPicker('textColorPickerInput', 'textColorInput');
+        setupColorPicker('bgColorPicker', 'bgColorInput', true);
+
+        // Initialize font size
+        updateFontSize(fontSizeSlider.value);
+
+        // Color picker functionality
+        function setupColorPicker(pickerInputId, inputId, isBackground = false) {
+            const pickerInput = document.getElementById(pickerInputId);
+            const input = document.getElementById(inputId);
+            const subtitleText = document.querySelector('.subtitle-text');
+
+            pickerInput.addEventListener('input', (e) => {
+                const color = e.target.value;
+                input.value = color;
+                if (isBackground) {
+                    document.querySelector('.subtitle-container').style.backgroundColor = color;
+                } else {
+                    subtitleText.style.color = color;
+                }
+            });
+
+            input.addEventListener('change', (e) => {
+                const color = e.target.value;
+                pickerInput.value = color;
+                if (isBackground) {
+                    document.querySelector('.subtitle-container').style.backgroundColor = color;
+                } else {
+                    subtitleText.style.color = color;
+                }
+            });
+        }
+
+        setupColorPicker('textColorPickerInput', 'textColorInput');
+        setupColorPicker('bgColorPicker', 'bgColorInput', true);
         function setActive(selection) {
             const singleContainerElement = document.querySelector(".single-vid");
             const splitContainerElement = document.querySelector(".split-vid");

@@ -157,7 +157,20 @@
     left: 0;
     right: 0;
   }
-  
+  .color-palette {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+}
+.color-palette.active {
+    display: block;
+}
   /* Forms and Inputs */
   .column input, select {
     background-color: #f0f0f000;
@@ -168,7 +181,7 @@
     color:rgb(181, 181, 181) !important;
   }
   .preview-container, .preview-container2 {
-    width: 80%;
+    width: 90%;
     height: 9.375rem;
     margin: 2.5rem auto;
     background-color: #2e3c50;
@@ -259,7 +272,7 @@
     border: 1px solid #5096ff;
     background-color: #1f2937;
     border-radius: 0.5rem;
-    width: 65%;
+    width: 80%;
     color: #fff;
   }
   
@@ -301,11 +314,19 @@
     align-items: center;
     border: 1px solid #5096ff;
     padding: 0.125rem;
-    padding-left:6px;
+    padding-left:6px; position: relative;
+
     margin-top: 0.4375rem !important;
     border-radius: 0.25rem;
   }
-  
+  #textColorPickerInput{
+    width:25px;
+    border:0px;
+  }
+  #bgColorPicker{
+    width:25px;
+    border:0px;
+  }
   .color-preview {
     width: 1.25rem;
     height: 1.25rem;
@@ -577,12 +598,12 @@
   
   .full-container {
     background-color: #1f2937 !important;
-    width: 80%;
+    width: 100%;
     border-radius: 0.375rem;
     margin: 0.9375rem auto;
-    box-shadow: 0 0 30px rgba(80,150,255,.353);
     padding-bottom: 0.9375rem;
-  }
+    transition: 0.3s;
+}
   
   .left-side {
     display: flex;
@@ -1033,4 +1054,45 @@
     .preset {
       width: 100%;
     }
+  } .credit-info {
+    color: #ffffff; /* White text */
+    text-align: center;
+    border: 1px solid #5096ff;
+/* box-shadow: 0 0 15px rgba(59,130,246,.5) !important; */
+    padding:20px;
+margin-top: 30px;
+border-radius: 8px;
   }
+.credit-info span {
+    display: block;
+    margin: 5px 0;
+}
+.credits-needed {
+    color: #00ff00; /* Green text */
+}
+.content-container{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.video-editor-header{
+  display: flex;
+  font-size: 24px;
+justify-content: flex-start;
+}
+.video-editor-header-container{
+  margin-top: 40px;
+  display: flex; align-items: center;
+}
+.video-editor-header-container p{
+  color:rgb(193, 193, 193);
+  margin-left:10px;
+}
+
+.fa-trash{
+  color: #4c9eeb;
+  margin-left:10px;
+}
+.fa-plus{
+  color: #4c9eeb;
+}

@@ -12,6 +12,15 @@
     </style>
 </head>
 <body>
+    <div class="content-container">
+
+        <div class="video-editor-header-container">
+            <h1 class="video-editor-header">
+                Video Editor
+            </h1>
+            <p>(beta)</p>
+        </div>
+
     <div class="full-container hover-box-shadow">
         <!-- Navigation Bar -->
         <nav class="nav-bar">
@@ -52,7 +61,10 @@
                     </div>
                 </div>
                 <div class="split-container">
+                    
                     <p class="header-text">Choose Video Type</p>
+
+                
                     <a href="split3.html" class="single-vid selection" onclick='setActive("single")'>
                         <i class="fa-solid fa-film"></i>
                         <p>Single Video</p>
@@ -71,7 +83,7 @@
             </section>
 
             <!-- Right Side: Preview -->
-            <section class="preview-side">
+       <section class="preview-side">
                 <h2 class="preview-header glow-text">Preview</h2>
                 <div class="phone-frame">
                     <div class="screen">
@@ -81,9 +93,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="credit-info">
+                    <span>Your Credits: 3910</span>
+                    <span class="credits-needed">Credits Needed: 1</span>
+                    <span>Remaining Credits: 3909</span>
+                </div>
+            </section>
+               
             </section>
         </main>
     </div>
+</div>
     <script>
 
         function setActive(selection) {
