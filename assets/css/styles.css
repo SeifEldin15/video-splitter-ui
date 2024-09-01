@@ -272,7 +272,7 @@
     border: 1px solid #5096ff;
     background-color: #1f2937;
     border-radius: 0.5rem;
-    width: 80%;
+    width: 60%;
     color: #fff;
   }
   
@@ -551,7 +551,7 @@
   .row {
     display: flex;
     align-items: center;
-    margin-bottom: 3.4375rem;
+    margin-bottom: 1.4375rem;
   }
   
   /* Settings and Container Styles */
